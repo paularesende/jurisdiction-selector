@@ -14,17 +14,8 @@ React: 18.3.1
 
 You need to have Node.js and npm installed on your machine.
 
-In the project directory, you can run:
-
-### `npm start`
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-
-### `npm test`
-Launches the test runner in the interactive watch mode.\
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
+* In the project root you can run `npm install`
+* You can run: `npm start` to open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* `npm test` launches the test runner in the interactive watch mode.
 
 
