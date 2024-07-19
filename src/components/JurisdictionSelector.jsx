@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './JurisdictionSelector.css';
-import { Checkbox, FormControlLabel, List, ListItem, CircularProgress, Typography } from '@material-ui/core';
+import { Checkbox, FormControlLabel, List, ListItem, CircularProgress, Typography } from '@mui/material';
 import { fetchJurisdictions, fetchSubJurisdictions } from '../api/fakeJurisdictionsApi';
 
 
