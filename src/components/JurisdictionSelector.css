@@ -1,0 +1,19 @@
+.jurisdiction-selector {
+    text-align: left;
+    padding: 1em;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.jurisdiction-container {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jurisdiction-sub {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    overflow-y: auto;
+}
