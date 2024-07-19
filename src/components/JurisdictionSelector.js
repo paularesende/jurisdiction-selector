@@ -4,6 +4,7 @@ import { fetchJurisdictions } from '../api/fakeJurisdictionsApi';
 const JurisdictionSelector = () => {
     const [jurisdictions, setJurisdictions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selected, setSelected] = useState({});
 
     useEffect(() => {
         const loadJurisdictions = async () => {
@@ -19,6 +20,12 @@ const JurisdictionSelector = () => {
         loadJurisdictions();
     }, []);
 
+    const handleJurisdictionChange = (e) => {
+        const jurisdictionId = e.target.name;
+        const isChecked = e.target.checked;
+        setSelected(prev => ({ ...prev, [jurisdictionId]: isChecked }));
+    };
+
     if (loading) {
         return <div>Loading jurisdictions...</div>;
     }
@@ -33,7 +40,13 @@ const JurisdictionSelector = () => {
                 jurisdictions.map(jurisdiction => (
                     <div key={jurisdiction.id} style={{ marginBottom: '10px' }}>
                         <label>
-                            <input type="checkbox" value={jurisdiction.id} name={jurisdiction.id} />
+                            <input
+                                type="checkbox"
+                                value={jurisdiction.id}
+                                name={jurisdiction.id}
+                                checked={selected[jurisdiction.id] === true}
+                                onChange={handleJurisdictionChange}
+                            />
                             {jurisdiction.name}
                         </label>
                     </div>
