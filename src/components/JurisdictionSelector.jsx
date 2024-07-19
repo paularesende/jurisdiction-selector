@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './JurisdictionSelector.css';
+import { Checkbox, FormControlLabel, List, ListItem, CircularProgress, Typography } from '@material-ui/core';
 import { fetchJurisdictions, fetchSubJurisdictions } from '../api/fakeJurisdictionsApi';
+
 
 const JurisdictionSelector = () => {
     const [subJurisdictions, setSubJurisdictions] = useState({});
@@ -63,48 +66,60 @@ const JurisdictionSelector = () => {
         const jurisdictionSubs = subJurisdictions[jurisdictionId];
 
         if (subLoading[jurisdictionId]) {
-            return <div>Loading sub-jurisdictions...</div>;
+            return <CircularProgress />;
         }
 
-        return jurisdictionSubs?.map(subJurisdiction => (
-            <div key={subJurisdiction.id} style={{ marginLeft: '20px' }}>
-                <label>
-                    <input
-                        type="checkbox"
-                        value={subJurisdiction.id}
-                        checked={selected[subJurisdiction.id] === true}
-                        onChange={handleSubJurisdictionChange}
-                    />
-                    {subJurisdiction.name}
-                </label>
+        return (
+            <div className='jurisdiction-sub'>
+                {jurisdictionSubs?.map(subJurisdiction => (
+                    <List key={subJurisdiction.id}>
+                        <ListItem>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={selected[subJurisdiction.id] === true}
+                                        onChange={handleSubJurisdictionChange}
+                                        value={subJurisdiction.id}
+                                    />
+                                }
+                                label={subJurisdiction.name}
+                            />
+                        </ListItem>
+                    </List>
+                ))}
             </div>
-        )) || null;
+        ) || null;
     };
 
     if (loading) {
-        return <div>Loading jurisdictions...</div>;
+        return <CircularProgress />;
     }
 
     return (
-        <div>
-            <h2>Select Jurisdictions</h2>
+        <div className="jurisdiction-selector">
+            <Typography variant="h4">Select Jurisdictions</Typography>
             {jurisdictions.length === 0 ? (
-                <div>No jurisdictions available</div>
+                <Typography>No jurisdictions available</Typography>
             ) : (
-                jurisdictions.map(jurisdiction => (
-                    <div key={jurisdiction.id} style={{ marginBottom: '10px' }}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value={jurisdiction.id}
-                                checked={selected[jurisdiction.id] === true}
-                                onChange={handleJurisdictionChange}
-                            />
-                            {jurisdiction.name}
-                        </label>
-                        {selected[jurisdiction.id] && renderSubJurisdictions(jurisdiction.id)}
-                    </div>
-                ))
+                <List className="jurisdiction-container">
+                    {jurisdictions.map(jurisdiction => (
+                            <ListItem key={jurisdiction.id}>
+                                <div>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={selected[jurisdiction.id] === true}
+                                                onChange={handleJurisdictionChange}
+                                                value={jurisdiction.id}
+                                            />
+                                        }
+                                        label={jurisdiction.name}
+                                    />
+                                    {selected[jurisdiction.id] && renderSubJurisdictions(jurisdiction.id)}
+                                </div>
+                                </ListItem>
+                        ))}
+                </List>
             )}
         </div>
     );
